@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Hello world!
+ * 博客出处：http://www.cnblogs.com/GoodHelper/
  *
  */
 @SpringBootApplication
