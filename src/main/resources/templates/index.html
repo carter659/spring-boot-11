@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>玩转spring boot——负载均衡与session同步</title>
+<style type="text/css">
+/*<![CDATA[*/
+tr {
+	text-align: center;
+	COLOR: #0076C8;
+	BACKGROUND-COLOR: #F4FAFF;
+}
+/*]]>*/
+</style>
+<script src="//cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+<script type="text/javascript">
+	/*<![CDATA[*/
+	var app = angular.module('app', []);
+	app.controller('MainController', function($rootScope, $scope, $http) {
+
+		$scope.value = '刘冬';
+
+		$scope.setSession = function() {
+			$http({
+				url : '/setSession?value=' + $scope.value,
+				method : 'POST'
+			});
+		}
+
+		$scope.getSession = function() {
+			$http({
+				url : '/getSession',
+				method : 'POST'
+			}).success(function(r) {
+				$scope.sesssionId = r.id
+				$scope.sesssion = r.value
+				$scope.port = r.port
+			});
+		}
+	});
+
+	/*]]>*/
+</script>
+</head>
+<body ng-app="app" ng-controller="MainController">
+	<h1>玩转spring boot——负载均衡与session同步</h1>
+	<h4>
+		<a href="http://www.cnblogs.com/GoodHelper/">from 刘冬的博客</a>
+	</h4>
+	<input type="text" ng-model="value" />
+	<input type="button" value="设置" ng-click="setSession()" />
+	<br />
+	<input type="button" value="获取" ng-click="getSession()" />
+	<br />
+	<h3>结果：</h3>
+	<table cellspacing="1" style="background-color: #a0c6e5">
+		<thead>
+			<tr>
+				<td>属性</td>
+				<td>值</td>
+			</tr>
+		</thead>
+		<tr>
+			<td>session id</td>
+			<td>{{sesssionId}}</td>
+		</tr>
+		<tr>
+			<td>session值</td>
+			<td>{{sesssion}}</td>
+		</tr>
+		<tr>
+			<td>本地端口</td>
+			<td>{{port}}</td>
+		</tr>
+	</table>
+
+
+	<br />
+	<a href="http://www.cnblogs.com/GoodHelper/">点击访问原版博客</a>
+</body>
+</html>
